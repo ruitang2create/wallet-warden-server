@@ -1,0 +1,15 @@
+/.idea/
+.DS_Store
+.env
+
+/env/
+../wallet-warden-server/.env
+
+alembic.ini
+
+wallet_warden_api_openapi_doc.yml
+
+# cache
+api/__pycache__/
+db/__pycache__/
+api/controller/__pycache__/
