@@ -1,0 +1,6 @@
+fastapi~=0.105.0
+pydantic~=2.5.3
+SQLAlchemy~=2.0.23
+PyJWT~=2.8.0
+starlette~=0.27.0
+cryptography~=41.0.7
