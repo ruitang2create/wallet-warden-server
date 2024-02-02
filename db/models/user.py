@@ -11,7 +11,6 @@ class User(BaseModel):
 
     username = Column(String(50), unique=True, nullable=False)
     password = Column(String(256), nullable=False)
-    password_salt = Column(String(128), nullable=False)
     spendings = relationship("Spending", back_populates="user")
     incomes = relationship("Income", back_populates="user")
 
@@ -20,5 +19,4 @@ class User(BaseModel):
             'id': self.id,
             'username': self.username,
             'password': self.password,
-            'password_salt': self.password_salt
         }
