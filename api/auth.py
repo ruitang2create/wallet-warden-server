@@ -1,6 +1,5 @@
 from pathlib import Path
 import jwt
-from cryptography.x509 import load_pem_x509_certificate
 
 
 def decode_and_validate_token(access_token):

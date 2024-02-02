@@ -9,11 +9,12 @@ alembic = "*"
 sqlalchemy = "*"
 pyjwt = "*"
 uvicorn = "*"
-cryptography = "*"
 starlette = "*"
 python-dotenv = "*"
 pyyaml = "*"
 mysql-connector-python = "*"
+python-decouple = "*"
+passlib = "*"
 
 [dev-packages]
 
