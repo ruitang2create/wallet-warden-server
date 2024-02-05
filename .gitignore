@@ -5,7 +5,9 @@
 /env/
 ../wallet-warden-server/.env
 
+# alembic
 alembic.ini
+/migrations/
 
 wallet_warden_api_openapi_doc.yml
 
