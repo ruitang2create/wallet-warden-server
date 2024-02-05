@@ -7,7 +7,7 @@
 
 # alembic
 alembic.ini
-/migrations/
+/migrations/versions/
 
 wallet_warden_api_openapi_doc.yml
 
