@@ -1,6 +1,6 @@
 from passlib.context import CryptContext
 
-PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecate="auto")
+PWD_CONTEXT = CryptContext(schemes=["bcrypt"])
 
 
 def verify_password(unverified_password: str, hashed_password: str) -> bool:

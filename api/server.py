@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from api.controller.routers import api_router
+
 app = FastAPI(debug=True)
 
 origins = [
@@ -16,5 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-import api.controller.spending # noqa
-import api.controller.income # noqa
+app.include_router(api_router, prefix="/api/v1")
+
+# import api.controller.spending # noqa
+# import api.controller.income # noqa
