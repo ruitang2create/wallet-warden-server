@@ -10,7 +10,7 @@ class User(BaseModel):
     __tablename__ = 'users'
 
     username = Column(String(50), unique=True, nullable=False)
-    password = Column(String(256), nullable=False)
+    hashed_password = Column(String(256), nullable=False)
     spendings = relationship("Spending", back_populates="user")
     incomes = relationship("Income", back_populates="user")
 
@@ -18,5 +18,5 @@ class User(BaseModel):
         return {
             'id': self.id,
             'username': self.username,
-            'password': self.password,
+            'hashed_password': self.hashed_password,
         }
