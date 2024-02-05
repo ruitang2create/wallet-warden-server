@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from api.controller.routers import api_router
 
-app = FastAPI(debug=True)
+app = FastAPI(debug=True, title="Wallet Warden API", version="1.0")
 
 origins = [
     "http://localhost",
