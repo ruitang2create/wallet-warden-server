@@ -1,3 +1,4 @@
+from typing import Optional, Any
 from sqlalchemy.orm import Session
 
 from auth.auth_security import hash_password
@@ -16,6 +17,9 @@ class CRUDUser(CRUDBase[User, CreateUserSchema]):
         db.commit()
 
         return db_obj
+
+    def get_by_username(self, db: Session, username: str) -> Optional[User]:
+        return db.query(User).filter(self.model.username == username).first()
 
 
 User_Manager = CRUDUser(User)
