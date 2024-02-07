@@ -15,6 +15,7 @@ pyyaml = "*"
 mysql-connector-python = "*"
 python-decouple = "*"
 passlib = "*"
+bcrypt = "*"
 
 [dev-packages]
 
