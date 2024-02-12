@@ -38,7 +38,7 @@ def token_response(token: str):
 def sign_jwt(user_id: str) -> Dict[str, str]:
     payload = {
         "sub": user_id,
-        "exp": time.time() + jwt_life,
+        "exp": time.time() + int(jwt_life),
         "iat": time.time()
     }
     token = jwt.encode(payload, jwt_secret, algorithm=jwt_algo)
