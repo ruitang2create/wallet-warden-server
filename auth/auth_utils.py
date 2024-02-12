@@ -1,5 +1,6 @@
 from typing import Dict, Optional
 import time
+from datetime import datetime
 import jwt
 from decouple import config
 from sqlalchemy.orm.session import Session
@@ -47,8 +48,5 @@ def sign_jwt(user_id: str) -> Dict[str, str]:
 
 
 def decode_jwt(token: str) -> dict:
-    try:
-        decoded_token = jwt.decode(token, jwt_secret, algorithms=[jwt_algo])
-        return decoded_token if decoded_token["expires"] >= time.time() else None
-    except:
-        return {}
+    decoded_token = jwt.decode(token, jwt_secret, algorithms=jwt_algo)
+    return decoded_token if decoded_token["exp"] >= time.time() else None
