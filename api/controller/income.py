@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from fastapi import Depends, APIRouter
+from fastapi import Depends, APIRouter, HTTPException, status
 from starlette.status import HTTP_201_CREATED
 
 from api.depends import get_db, get_current_user
@@ -12,7 +12,12 @@ router = APIRouter()
 
 
 @router.get("/", response_model=IncomeListResponseSchema)
-def fetch_all_incomes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def fetch_all_incomes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), user=Depends(get_current_user)):
+    if not user.is_superuser:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Unauthorized request"
+        )
     records = Income_Manager.get_multi(db=db, skip=skip, limit=limit)
     return {
         "incomes": records,
@@ -22,7 +27,6 @@ def fetch_all_incomes(skip: int = 0, limit: int = 100, db: Session = Depends(get
 @router.get("/user", response_model=IncomeListResponseSchema)
 def fetch_all_incomes_by_user(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
                               user=Depends(get_current_user)):
-    print(f'Select spending records whose user_id = {user.id}')
     records = Income_Manager.get_multi_by_user_id(db=db, user_id=user.id, skip=skip, limit=limit)
     return {
         "incomes": records,

@@ -11,6 +11,7 @@ class CreateUserSchema(UserBase):
 
 class UserInDBBase(UserBase):
     id: UUID4
+    is_superuser: bool
 
     class Config:
         orm_mode = True

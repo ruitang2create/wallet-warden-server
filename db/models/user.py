@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Boolean
 from sqlalchemy.orm import relationship
 
 from db.models.base_model import BaseModel
@@ -11,6 +11,7 @@ class User(BaseModel):
 
     username = Column(String(50), unique=True, nullable=False)
     hashed_password = Column(String(256), nullable=False)
+    is_superuser = Column(Boolean, default=False)
     spendings = relationship("Spending", back_populates="user")
     incomes = relationship("Income", back_populates="user")
 
@@ -19,4 +20,5 @@ class User(BaseModel):
             'id': self.id,
             'username': self.username,
             'hashed_password': self.hashed_password,
+            'is_superuser': self.is_superuser,
         }
