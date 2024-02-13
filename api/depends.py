@@ -2,7 +2,7 @@ from typing import Generator
 from fastapi import Depends, HTTPException, status, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm.session import Session
-from jwt import PyJWTError
+from jwt import PyJWTError, DecodeError, ExpiredSignatureError, InvalidTokenError
 
 from db.crud.crud_user import User_Manager
 from db.session import LocalSession
@@ -26,16 +26,29 @@ def get_current_user(
 ) -> User:
     try:
         payload = decode_jwt(token.credentials)
-        if payload is None:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token expired",
-                headers={"WWW-Authenticate": "Bearer"},
-            )
-    except PyJWTError:
+    except ExpiredSignatureError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token has expired",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    except DecodeError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token is invalid",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    except InvalidTokenError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    except PyJWTError:
+        # Catch-all for any other PyJWTError not explicitly handled above
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Problem with token",
             headers={"WWW-Authenticate": "Bearer"},
         )
     user = User_Manager.get(db=db, id=payload["sub"])
