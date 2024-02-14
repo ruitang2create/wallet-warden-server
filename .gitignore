@@ -4,6 +4,7 @@
 
 /env/
 ../wallet-warden-server/.env
+wallet-warden-server-revision*
 
 # alembic
 alembic.ini
