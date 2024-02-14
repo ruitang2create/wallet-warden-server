@@ -3,31 +3,31 @@ from typing import List
 from datetime import datetime
 
 
-class CreateSpendingSchema(BaseModel):
+class SpendingBase(BaseModel):
     recipient: str
     amount: float
     currency: str
     spending_type: str
     transaction_time: datetime
     is_necessary: bool
-    user_id: UUID4
     notes: str
 
 
-class GetSpendingSchema(BaseModel):
+class CreateSpendingRequestSchema(SpendingBase):
+    ...
+
+
+class CreateSpendingSchema(SpendingBase):
+    user_id: UUID4
+
+
+class SpendingResponseSchema(SpendingBase):
     id: UUID4
-    recipient: str
-    amount: float
-    currency: str
-    spending_type: str
-    transaction_time: datetime
-    is_necessary: bool
     user_id: UUID4
-    notes: str
 
     class Config:
         orm_mode: True
 
 
-class GetSpendingListSchema(BaseModel):
-    spendings: List[GetSpendingSchema]
+class SpendingListResponseSchema(BaseModel):
+    spendings: List[SpendingResponseSchema]
